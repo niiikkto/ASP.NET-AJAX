@@ -1,4 +1,3 @@
-```markdown
 # ASP.NET Products API
 
 Минимальный API на **ASP.NET Core 8** для управления продуктами.  
