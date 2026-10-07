@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- SQLite: не нужен установленный SQL Server / LocalDB -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- JSON-конфиг сущностей должен попадать в bin/.../Infrastructure/ -->
+    <Content Update="Infrastructure\entity-config.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Infrastructure\entity-config.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
