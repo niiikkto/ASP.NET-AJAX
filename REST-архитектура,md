@@ -1,0 +1,60 @@
+
+
+### Крупные платформы и сервисы
+
+| Сервис              | Что использует REST                          | Пример endpoint’ов |
+|---------------------|----------------------------------------------|--------------------|
+| **GitHub**          | Полностью REST API                           | `GET /users/{username}`, `POST /repos`, `GET /repos/{owner}/{repo}/issues` |
+| **Twitter / X**     | REST API (v2)                                | `GET /2/tweets/{id}`, `POST /2/tweets`, `GET /2/users/{id}/tweets` |
+| **Stripe**          | Классический REST                            | `POST /v1/charges`, `GET /v1/customers/{id}`, `POST /v1/payment_intents` |
+| **Spotify**         | REST API                                     | `GET /v1/me`, `GET /v1/tracks/{id}`, `PUT /v1/me/player/play` |
+| **Shopify**         | REST Admin API + GraphQL                     | `GET /admin/api/2024-01/products.json`, `POST /admin/api/.../orders.json` |
+| **PayPal**          | REST API                                     | `POST /v1/payments/payment`, `GET /v1/payments/payment/{id}` |
+| **Twilio**          | REST                                         | `POST /2010-04-01/Accounts/{AccountSid}/Messages.json` |
+| **Slack**           | Web API (REST-стиль)                         | `POST /api/chat.postMessage`, `GET /api/users.list` |
+| **Dropbox**         | REST API                                     | `POST /2/files/list_folder`, `POST /2/files/download` |
+| **Notion**          | REST API                                     | `GET /v1/pages/{page_id}`, `PATCH /v1/pages/{page_id}` |
+
+### Мобильные и веб-приложения (клиент ↔ сервер)
+
+Большинство современных приложений используют REST «под капотом»:
+
+- **Uber / Яндекс Go / Bolt** — заказ такси, статусы поездок, геолокация
+- **Airbnb** — поиск жилья, бронирование, отзывы
+- **Instagram / Facebook** (частично Graph API, но много REST-эндпоинтов)
+- **Netflix** (внутренние и публичные API)
+- **YouTube** (Data API v3 — REST)
+- **Тинькофф / Сбербанк / Альфа-Банк** — мобильные банки (почти все банковские API в России — REST)
+- **Wildberries, Ozon, Avito** — каталог, корзина, заказы
+- **Telegram Bot API** — тоже REST
+
+### Примеры из вашего конспекта (как это выглядит в реальной жизни)
+
+**GitHub** (уровень 2 по Richardson Maturity Model):
+
+```
+GET    /users/{username}                 → информация о пользователе
+GET    /users/{username}/repos           → репозитории пользователя
+POST   /user/repos                       → создать репозиторий
+GET    /repos/{owner}/{repo}/issues/{id} → конкретный issue
+PATCH  /repos/{owner}/{repo}/issues/{id} → обновить issue
+```
+
+**Stripe** (очень чистый REST):
+
+```
+POST   /v1/customers
+GET    /v1/customers/{id}
+POST   /v1/customers/{id}/sources
+POST   /v1/payment_intents
+```
+
+### Кратко по уровням Richardson Maturity Model на практике
+
+| Уровень | Кто так делает                          | Пример |
+|---------|-----------------------------------------|--------|
+| **0**   | Старые SOAP-сервисы, некоторые legacy   | Один endpoint `/api`, всё через POST |
+| **1**   | Многие простые API                      | `/users/42`, `/orders/7` |
+| **2**   | **Большинство современных API** (GitHub, Stripe, Spotify, Shopify) | HTTP-методы + правильные статус-коды |
+| **3**   | Редко (HATEOAS)                         | Spring HATEOAS, некоторые enterprise API, часть API Netflix |
+
